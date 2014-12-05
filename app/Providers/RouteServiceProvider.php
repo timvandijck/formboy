@@ -14,6 +14,15 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	protected $namespace = 'Formboy\Http\Controllers';
 
+    /**
+     * The controllers to scan for route annotations.
+     *
+     * @var array
+     */
+    protected $scan = [
+        'Formboy\Http\Controllers\Form\FormController'
+    ];
+
 	/**
 	 * Define your route model bindings, pattern filters, etc.
 	 *

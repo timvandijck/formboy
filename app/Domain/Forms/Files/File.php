@@ -1,6 +1,6 @@
 <?php
 
-namespace Formboy\Form\File;
+namespace Formboy\Forms\Files;
 
 use Illuminate\Database\Eloquent\Model;
 
