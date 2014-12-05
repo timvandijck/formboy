@@ -1,4 +1,4 @@
-<?php namespace App\Console\Commands;
+<?php namespace Formboy\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

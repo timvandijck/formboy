@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace Formboy\Services;
 
-use App\User;
+use Formboy\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
