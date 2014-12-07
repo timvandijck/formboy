@@ -77,4 +77,19 @@ class FormController extends Controller {
 
         return view('pages.form.dashboard')->with('form', $form);
     }
+
+    /**
+     * Show an overview of all forms for the current user.
+     *
+     * @get("form/overview")
+     *
+     * @Middleware("auth")
+     *
+     * @return Repsonse
+     */
+    public function getOverview() {
+        $forms = $this->formRepository->getFormsByUser($this->user->id);
+
+        return view('pages.form.overview')->with('forms', $forms);
+    }
 } 

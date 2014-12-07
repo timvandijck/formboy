@@ -43,4 +43,14 @@ class FormRepository {
     public function getForm($id) {
         return Form::findOrFail($id);
     }
+
+    /**
+     * Retrieve all forms that belong to a user.
+     *
+     * @param int $userId
+     * @return array
+     */
+    public function getFormsByUser($userId) {
+        return Form::where('user_id', '=', $userId)->get();
+    }
 } 
