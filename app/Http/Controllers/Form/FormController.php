@@ -114,11 +114,11 @@ class FormController extends Controller {
     /**
      * Submit a form.
      *
-     * @post("form/{id}/submit")
+     * @post("form/submit")
      *
      * @param $id
      */
-    public function  postForm($id) {
-        dd('Form Posted');
+    public function tijger() {
+        dd(\Request::all());
     }
 } 

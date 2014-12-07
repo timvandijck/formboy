@@ -40,11 +40,37 @@ class FormParser {
      * @param $form
      * @return mixed|string
      */
-    public function renderForm($form) {
+    public function renderForm($form, $errors = array()) {
         $output = file_get_contents(public_path() . '/uploads/' . $form->user_id . '/' . $form->id . '/' . $form->template);
 
-        $output = str_replace('{{FormSubmit}}', '/form/' . $form->id . '/submit', $output);
+        $output = str_replace('{{FormSubmit}}', '/form/submit', $output);
+
+        $errorList = '';
+        if (count($errors) > 0) {
+            $errorList .= '<ul>';
+            foreach($errors as $error) {
+                $errorList .= "<li>$error</li>";
+            }
+            $errorList .= '</ul>';
+        }
+
+        $output = str_replace('{{FormErrors}}', $errorList, $output);
+
+        $csrfProtection = '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+
+        $output = str_replace('{{CSRF}}', $csrfProtection, $output);
 
         return $output;
+    }
+
+    /**
+     * Checks if a form contains all required tokens.
+     *
+     * @todo implement this.
+     */
+    public function validateForm() {
+        // @todo Check for CSRF Token
+
+        // @todo Check for FormSubmit Token
     }
 }
