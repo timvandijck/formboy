@@ -2,6 +2,7 @@
 
 namespace Formboy\Http\Controllers\Form;
 
+use Formboy\Domain\Forms\FormParser;
 use Formboy\Domain\Forms\FormRepository;
 use Formboy\Http\Controllers\Controller;
 use Formboy\Http\Requests\FormCreateRequest;
@@ -11,12 +12,14 @@ use Illuminate\Auth\Guard;
 class FormController extends Controller {
 
     protected $formRepository;
+    protected $formParser;
     protected $user;
 
-    function __construct(FormRepository $formRepository, Guard $auth)
+    function __construct(FormRepository $formRepository, Guard $auth, FormParser $formParser)
     {
         $this->formRepository = $formRepository;
         $this->user = $auth->user();
+        $this->formParser = $formParser;
     }
 
     /**
@@ -93,5 +96,29 @@ class FormController extends Controller {
         $forms = $this->formRepository->getFormsByUser($this->user->id);
 
         return view('pages.form.overview')->with('forms', $forms);
+    }
+
+    /**
+     * Renders a form.
+     *
+     * @get("form/{id}")
+     *
+     * @param $id
+     */
+    public function getForm($id) {
+        $form = $this->formRepository->getForm($id);
+
+        return $this->formParser->renderForm($form);
+    }
+
+    /**
+     * Submit a form.
+     *
+     * @post("form/{id}/submit")
+     *
+     * @param $id
+     */
+    public function  postForm($id) {
+        dd('Form Posted');
     }
 } 

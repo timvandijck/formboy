@@ -33,4 +33,18 @@ class FormParser {
             }
         }
     }
+
+    /**
+     * Generate the HTML for a form.
+     *
+     * @param $form
+     * @return mixed|string
+     */
+    public function renderForm($form) {
+        $output = file_get_contents(public_path() . '/uploads/' . $form->user_id . '/' . $form->id . '/' . $form->template);
+
+        $output = str_replace('{{FormSubmit}}', '/form/' . $form->id . '/submit', $output);
+
+        return $output;
+    }
 }
