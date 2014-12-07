@@ -10,12 +10,22 @@
 
 				@include('partials.errors.basic')
 
-				<table class="table">
-				    @foreach($forms as $form)
-				        <tr>
-				            <td><a href="/form/{{ $form->id }}/dashboard">{{ $form->name }}</a></td>
-				        </tr>
-				    @endforeach
+				<table class="table table-striped">
+				<thead>
+				    <tr>
+				        <th>Name</th>
+				        <th>Created At</th>
+				    </tr>
+				</thead>
+				<tbody>
+				@foreach($forms as $form)
+                    <tr>
+                        <td><a href="/form/{{ $form->id }}/dashboard">{{ $form->name }}</a></td>
+                        <td>{{ $form->created_at }}</td>
+                    </tr>
+                @endforeach
+				</tbody>
+
 				</table>
 
 				<a class="btn btn-primary" href="/form/create">New Form</a>

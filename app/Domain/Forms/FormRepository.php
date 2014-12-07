@@ -72,6 +72,6 @@ class FormRepository {
      * @return array
      */
     public function getFormsByUser($userId) {
-        return Form::where('user_id', '=', $userId)->get();
+        return Form::where('user_id', '=', $userId)->orderBy('created_at', 'DESC')->get();
     }
 } 
