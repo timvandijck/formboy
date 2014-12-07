@@ -36,6 +36,10 @@ class FormRepository {
         }
     }
 
+    /**
+     * @param $id
+     * @return Form
+     */
     public function getForm($id) {
         return Form::findOrFail($id);
     }

@@ -13,7 +13,8 @@
 	"autoload": {
 		"classmap": [
 			"database",
-			"tests/TestCase.php"
+			"tests/TestCase.php",
+            "app/Domain"
 		],
 		"psr-4": {
 			"Formboy\\": "app/"

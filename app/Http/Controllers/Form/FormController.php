@@ -52,12 +52,10 @@ class FormController extends Controller {
             return redirect("form/$id/dashboard");
 
         } catch (InvalidTemplateException $ex) {
-            dd($ex);
 
             return view('pages.form.create')->withErrors($ex->getMessage());
 
         } catch (\Exception $ex) {
-            dd($ex);
 
             return view('pages.form.create')->withErrors('An unexpected exception occured. Please contact an administrator.');
 
