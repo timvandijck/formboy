@@ -28,15 +28,19 @@ class FormRepository {
         $templateFileContents = file_get_contents($templateFile->getRealPath());
 
         if (strpos($templateFileContents,'{{FormSubmit}}') !== false) { // Check if the form-submit token is in the file.
+            $filename = $templateFile->getClientOriginalName();
+
             $form = new Form();
             $form->name = $formName;
             $form->user_id = $user->id;
-            $form->template = $templateFile->getClientOriginalName();
+            $form->template = $filename;
             $form->save();
 
             $this->formParser->processForm($templateFileContents, $form);
 
-            $templateFile->move(public_path() . '/uploads');
+            $directory = public_path() . '/uploads/' . $user->id . '/' . $form->id;
+
+            $templateFile->move($directory, $filename);
 
             return $form;
 
