@@ -8,6 +8,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FormRepository {
 
+    protected $formParser;
+
+    function __construct(FormParser $formParser)
+    {
+        $this->formParser = $formParser;
+    }
+
     /**
      * @param string $formName
      * @param UploadedFile $templateFile
@@ -26,6 +33,8 @@ class FormRepository {
             $form->user_id = $user->id;
             $form->template = $templateFile->getClientOriginalName();
             $form->save();
+
+            $this->formParser->processForm($templateFileContents, $form);
 
             $templateFile->move(public_path() . '/uploads');
 

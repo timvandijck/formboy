@@ -57,6 +57,8 @@ class FormController extends Controller {
 
         } catch (\Exception $ex) {
 
+            dd($ex);
+
             return view('pages.form.create')->withErrors('An unexpected exception occured. Please contact an administrator.');
 
         }
