@@ -11,4 +11,8 @@ class Form extends Model {
     public function files() {
         return $this->hasMany('File');
     }
+
+    public function fields() {
+        return $this->hasMany('Formboy\Domain\Forms\Fields\Field');
+    }
 } 

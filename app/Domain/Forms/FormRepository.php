@@ -46,11 +46,19 @@ class FormRepository {
     }
 
     /**
-     * @param $id
+     * @param integer $id
+     * @param boolean $lazyLoadChildren
+     *
      * @return Form
      */
-    public function getForm($id) {
-        return Form::findOrFail($id);
+    public function getForm($id, $lazyLoadChildren = false) {
+        $query = Form::where('id','=',$id);
+
+        if($lazyLoadChildren == true) {
+            $query->with('fields');
+        }
+
+        return $query->firstOrFail();
     }
 
     /**

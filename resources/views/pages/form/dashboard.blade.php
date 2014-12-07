@@ -12,6 +12,25 @@
 
 				<h1>{{ $form->name }}</h1>
 
+				<h2>Fields</h2>
+
+				<table class="table table-striped">
+				    <thead>
+				        <tr>
+				            <th>Field</th>
+				            <th>Required</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        @foreach($form->fields as $field)
+				        <tr>
+				            <td>{{ $field->name }}</td>
+                            <td>{{ $field->required }}</td>
+				        </tr>
+				        @endforeach
+				    </tbody>
+                </table>
+
 			</div>
 		</div>
 	</div>

@@ -75,7 +75,7 @@ class FormController extends Controller {
      * @return Response
      */
     public function getFormDashboard($id) {
-        $form = $this->formRepository->getForm($id);
+        $form = $this->formRepository->getForm($id, true);
 
         return view('pages.form.dashboard')->with('form', $form);
     }
