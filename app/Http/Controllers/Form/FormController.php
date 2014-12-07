@@ -24,6 +24,8 @@ class FormController extends Controller {
      *
      * @Get("form/create")
      *
+     * @Middleware("auth")
+     *
      * @return Response
      */
     public function getCreate()
@@ -36,14 +38,18 @@ class FormController extends Controller {
      *
      * @Post("form/create")
      *
+     * @Middleware("auth")
+     *
      * @return Response
      */
     public function postCreate(FormCreateRequest $request)
     {
         try {
-            $this->formRepository->saveForm($request->get('name'), $request->file('template_file'), $this->user);
+            $form = $this->formRepository->saveForm($request->get('name'), $request->file('template_file'), $this->user);
 
-            return 'Posted!';
+            $id = $form->id;
+
+            return redirect("form/$id/dashboard");
 
         } catch (InvalidTemplateException $ex) {
             dd($ex);
@@ -56,5 +62,21 @@ class FormController extends Controller {
             return view('pages.form.create')->withErrors('An unexpected exception occured. Please contact an administrator.');
 
         }
+    }
+
+    /**
+     * Show a page to manage your form.
+     *
+     * @get("form/{id}/dashboard")
+     *
+     * @Middleware("auth")
+     * @Middleware("Formboy\Http\Middleware\FormAuthentication")
+     *
+     * @return Response
+     */
+    public function getFormDashboard($id) {
+        $form = $this->formRepository->getForm($id);
+
+        return view('pages.form.dashboard')->with('form', $form);
     }
 } 
