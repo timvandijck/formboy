@@ -39,6 +39,8 @@
 
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
+				    <li><a href="/form/overview">My Forms</a></li>
+				    <li><a href="/form/create">Create Form</a></li>
 				</ul>
 
 				@if (Auth::check())

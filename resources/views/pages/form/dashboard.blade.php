@@ -10,7 +10,7 @@
 
 				@include('partials.errors.basic')
 
-				<h1>{{ $form->name }}</h1>
+				<h1>{{ $form->name }} <a class="btn btn-default" href="/form/{{ $form->id }}">Show</a></h1>
 
 				<h2>Fields</h2>
 

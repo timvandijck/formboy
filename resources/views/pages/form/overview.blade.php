@@ -15,6 +15,7 @@
 				    <tr>
 				        <th>Name</th>
 				        <th>Created At</th>
+				        <th></th>
 				    </tr>
 				</thead>
 				<tbody>
@@ -22,6 +23,7 @@
                     <tr>
                         <td><a href="/form/{{ $form->id }}/dashboard">{{ $form->name }}</a></td>
                         <td>{{ $form->created_at }}</td>
+                        <td><a class="btn btn-default" href="/form/{{ $form->id }}">Show</a></td>
                     </tr>
                 @endforeach
 				</tbody>
