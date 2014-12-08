@@ -18,4 +18,14 @@ class AuthController extends Controller {
 
 	use AuthenticatesAndRegistersUsers;
 
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/form/overview';
+    }
+
 }
