@@ -56,9 +56,10 @@ class FormParser {
 
         $output = str_replace('{{FormErrors}}', $errorList, $output);
 
-        $csrfProtection = '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+        $magic = '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+        $magic .= '<input type="hidden" name="form_id" value="' . $form->id . '">';
 
-        $output = str_replace('{{CSRF}}', $csrfProtection, $output);
+        $output = str_replace('{{Magic}}', $magic, $output);
 
         return $output;
     }
@@ -69,7 +70,7 @@ class FormParser {
      * @todo implement this.
      */
     public function validateForm() {
-        // @todo Check for CSRF Token
+        // @todo Check for the Magic Token
 
         // @todo Check for FormSubmit Token
     }
