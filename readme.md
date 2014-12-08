@@ -8,7 +8,38 @@ The application is being build on the Laravel framework (version 5). For it's re
 TBA
 
 ## Usage
-TBA
+1) Build your form in plain HTML, CSS and Javascript.
+2) Upload your form.
+3) You're done!
+
+### Required tokens
+In order to make your form functional we need you to include some tokens.
+
+#### {{FormErrors}}
+This token is needed to display errors on your form.
+
+Example:
+```html
+<div class="errors">{{FormErrors}}</div>
+```
+
+#### {{FormSubmit}}
+We need this to let the form know where to submit the data. Just put it in the action-tag of your form.
+
+Example:
+```html
+<form method="POST" action="{{FormSubmit}}">
+```
+
+#### {{Magic}}
+With the magic token we add some extra magic to your form like CSRF-protection. Put it between the <form></form> tags. Just above the submit-button is a nice spot.
+
+Example:
+```html
+{{CSRF}}
+
+<input type="submit" value="Submit">
+```
 
 ### License
 
