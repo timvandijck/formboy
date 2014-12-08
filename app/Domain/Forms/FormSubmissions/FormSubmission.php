@@ -2,6 +2,10 @@
 
 namespace Formboy\Forms\FormSubmissions;
 
-class FormSubmission {
+use Illuminate\Database\Eloquent\Model;
 
+class FormSubmission extends Model {
+    function submissionData() {
+        $this->hasMany('SubmissionData', 'submission_id');
+    }
 }
