@@ -52,11 +52,12 @@ class FormController extends Controller {
     public function postCreate(FormCreateRequest $request)
     {
         try {
-            $form = $this->formRepository->saveForm($request->get('name'), $request->file('template_file'), $this->user);
+            $templateFile = $request->file('template_file');
+            $completePage = $request->file('complete_page');
 
-            $id = $form->id;
+            $form = $this->formRepository->saveForm($request->get('name'), $templateFile, $completePage, $this->user);
 
-            return redirect("form/$id/dashboard");
+            return redirect("form/$form->id/dashboard");
 
         } catch (InvalidTemplateException $ex) {
 
@@ -144,8 +145,20 @@ class FormController extends Controller {
 
         if($valid) {
             $this->formSubmissionRepository->saveSubmission($data, $form);
+
+            return redirect("form/$form->id/complete");
+
+            var_dump('hmm');
         } else {
             return $this->formParser->renderForm($input['form_id'], $errors);
         }
+    }
+
+    /**
+     * @get("form/{id}/complete")
+     */
+    public function showCompletePage($id) {
+        $form = $this->formRepository->getForm($id);
+        return $this->formParser->renderCompletePage($form);
     }
 } 

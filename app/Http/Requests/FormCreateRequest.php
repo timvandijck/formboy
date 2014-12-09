@@ -14,6 +14,7 @@ class FormCreateRequest extends Request {
         return [
             'name' => 'required',
             'template_file' => 'required|max:1024|mimes:xhtml,shtml,html,htm',
+            'complete_page' => 'required|max:1024|mimes:xhtml,shtml,html,htm',
             'javascript_file' => 'max:1024|mimes:js',
             'css_file' => 'max:1024|mimes:css'
         ];

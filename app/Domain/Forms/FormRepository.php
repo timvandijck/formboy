@@ -24,23 +24,23 @@ class FormRepository {
      *
      * @return Form $form
      */
-    public function saveForm($formName, UploadedFile $templateFile, User $user) {
+    public function saveForm($formName, UploadedFile $templateFile, UploadedFile $completePage ,User $user) {
         $templateFileContents = file_get_contents($templateFile->getRealPath());
 
         if (strpos($templateFileContents,'{{FormSubmit}}') !== false) { // Check if the form-submit token is in the file.
-            $filename = $templateFile->getClientOriginalName();
-
             $form = new Form();
             $form->name = $formName;
             $form->user_id = $user->id;
-            $form->template = $filename;
+            $form->template = $templateFile->getClientOriginalName();
+            $form->complete_page = $completePage->getClientOriginalName();
             $form->save();
 
             $this->formParser->processForm($templateFileContents, $form);
 
-            $directory = public_path() . '/uploads/' . $user->id . '/' . $form->id;
+            $directory = $this->formParser->getFilePath($form);
 
-            $templateFile->move($directory, $filename);
+            $templateFile->move($directory, $templateFile->getClientOriginalName());
+            $completePage->move($directory, $completePage->getClientOriginalName());
 
             return $form;
 

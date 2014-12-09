@@ -41,7 +41,7 @@ class FormParser {
      * @return mixed|string
      */
     public function renderForm($form, $errors = array()) {
-        $output = file_get_contents(public_path() . '/uploads/' . $form->user_id . '/' . $form->id . '/' . $form->template);
+        $output = file_get_contents($this->getFilePath($form) . $form->template);
 
         $output = str_replace('{{FormSubmit}}', '/form/submit', $output);
 
@@ -61,10 +61,15 @@ class FormParser {
 
         $output = str_replace('{{Magic}}', $magic, $output);
 
-        $scripts = '<script src="/js/vendor/jquery.js"></script>';
-        $scripts .= '<script src="/js/validation.js"></script>';
+        $output = $this->addScripts($output);
 
-        $output = str_replace('{{Scripts}}', $scripts, $output);
+        return $output;
+    }
+
+    public function renderCompletePage($form) {
+        $output = file_get_contents($this->getFilePath($form) . $form->complete_page);
+
+        $output = $this->addScripts($output);
 
         return $output;
     }
@@ -78,5 +83,28 @@ class FormParser {
         // @todo Check for the Magic Token
 
         // @todo Check for FormSubmit Token
+    }
+
+    /**
+     * @param $form
+     * @return string
+     */
+    public function getFilePath($form)
+    {
+        return public_path() . '/uploads/' . $form->user_id . '/' . $form->id . '/';
+    }
+
+    /**
+     * @param $output
+     * @return string
+     */
+    protected function addScripts($output)
+    {
+        $scripts = '<script src="/js/vendor/jquery.js"></script>';
+        $scripts .= '<script src="/js/validation.js"></script>';
+
+        $output = str_replace('{{Scripts}}', $scripts, $output);
+
+        return $output;
     }
 }
