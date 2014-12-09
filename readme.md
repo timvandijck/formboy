@@ -39,6 +39,7 @@ Example:
 {{Magic}}
 
 <input type="submit" value="Submit">
+```
 
 #### {{CSS}}
 Put this token where the CSS-files should be.
