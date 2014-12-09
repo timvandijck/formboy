@@ -24,7 +24,7 @@ class FormRepository {
      *
      * @return Form $form
      */
-    public function saveForm($formName, UploadedFile $templateFile, UploadedFile $completePage ,User $user) {
+    public function saveForm($formName, UploadedFile $templateFile, UploadedFile $completePage, UploadedFile $cssFile, UploadedFile $jsFile, User $user) {
         $templateFileContents = file_get_contents($templateFile->getRealPath());
 
         if (strpos($templateFileContents,'{{FormSubmit}}') !== false) { // Check if the form-submit token is in the file.
@@ -33,6 +33,8 @@ class FormRepository {
             $form->user_id = $user->id;
             $form->template = $templateFile->getClientOriginalName();
             $form->complete_page = $completePage->getClientOriginalName();
+            $form->css_file = $cssFile->getClientOriginalName();
+            $form->javascript_file = $cssFile->getClientOriginalName();
             $form->save();
 
             $this->formParser->processForm($templateFileContents, $form);
@@ -41,6 +43,8 @@ class FormRepository {
 
             $templateFile->move($directory, $templateFile->getClientOriginalName());
             $completePage->move($directory, $completePage->getClientOriginalName());
+            $cssFile->move($directory, $cssFile->getClientOriginalName());
+            $jsFile->move($directory, $jsFile);
 
             return $form;
 

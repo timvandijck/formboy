@@ -61,7 +61,8 @@ class FormParser {
 
         $output = str_replace('{{Magic}}', $magic, $output);
 
-        $output = $this->addScripts($output);
+        $output = $this->addScripts($output, $form);
+        $output = $this->addCss($output, $form);
 
         return $output;
     }
@@ -69,7 +70,8 @@ class FormParser {
     public function renderCompletePage($form) {
         $output = file_get_contents($this->getFilePath($form) . $form->complete_page);
 
-        $output = $this->addScripts($output);
+        $output = $this->addScripts($output, $form);
+        $output = $this->addCss($output, $form);
 
         return $output;
     }
@@ -98,12 +100,32 @@ class FormParser {
      * @param $output
      * @return string
      */
-    protected function addScripts($output)
+    protected function addScripts($output, $form)
     {
         $scripts = '<script src="/js/vendor/jquery.js"></script>';
         $scripts .= '<script src="/js/validation.js"></script>';
 
+        if(isset($form->javascript_file) && $form->javascript_file != '') {
+            $file = $this->getFilePath($form) . $form->javascript_file;
+            $scripts .= '<script src="' . $file . '"></script>';
+        }
+
         $output = str_replace('{{Scripts}}', $scripts, $output);
+
+        return $output;
+    }
+
+    /**
+     * @param $output
+     * @return string
+     */
+    protected function addCss($output, $form)
+    {
+        $file = $this->getFilePath($form) . $form->css_file;
+
+        $css = '<link href="' . $file . '" rel="stylesheet">';
+
+        $output = str_replace('{{CSS}}', $css, $output);
 
         return $output;
     }
