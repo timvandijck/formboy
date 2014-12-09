@@ -61,6 +61,11 @@ class FormParser {
 
         $output = str_replace('{{Magic}}', $magic, $output);
 
+        $scripts = '<script src="/js/vendor/jquery.js"></script>';
+        $scripts .= '<script src="/js/validation.js"></script>';
+
+        $output = str_replace('{{Scripts}}', $scripts, $output);
+
         return $output;
     }
 
