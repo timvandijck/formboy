@@ -25,6 +25,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Complete Page</label>
+                        <div class="col-sm-6">
+                            <input type="file" id="complete_page" name="complete_page">
+                        </div>
+                    </div>
+					<div class="form-group">
 						<label for="password" class="col-sm-3 control-label">CSS</label>
 						<div class="col-sm-6">
 							<input type="file" id="css_file" name="css_file">

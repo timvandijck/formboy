@@ -64,9 +64,7 @@ class FormController extends Controller {
             return view('pages.form.create')->withErrors($ex->getMessage());
 
         } catch (\Exception $ex) {
-
-            dd($ex);
-
+            
             return view('pages.form.create')->withErrors('An unexpected exception occured. Please contact an administrator.');
 
         }
@@ -147,8 +145,6 @@ class FormController extends Controller {
             $this->formSubmissionRepository->saveSubmission($data, $form);
 
             return redirect("form/$form->id/complete");
-
-            var_dump('hmm');
         } else {
             return $this->formParser->renderForm($input['form_id'], $errors);
         }
