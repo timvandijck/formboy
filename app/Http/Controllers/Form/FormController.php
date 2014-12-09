@@ -4,22 +4,26 @@ namespace Formboy\Http\Controllers\Form;
 
 use Formboy\Domain\Forms\FormParser;
 use Formboy\Domain\Forms\FormRepository;
+use Formboy\Forms\FormSubmissions\FormSubmissionRepository;
 use Formboy\Http\Controllers\Controller;
 use Formboy\Http\Requests\FormCreateRequest;
 use Formboy\Exceptions\InvalidTemplateException;
 use Illuminate\Auth\Guard;
+use Illuminate\Http\Request;
 
 class FormController extends Controller {
 
     protected $formRepository;
     protected $formParser;
     protected $user;
+    protected $formSubmissionRepository;
 
-    function __construct(FormRepository $formRepository, Guard $auth, FormParser $formParser)
+    function __construct(FormRepository $formRepository, Guard $auth, FormParser $formParser, FormSubmissionRepository $formSubmissionRepository)
     {
         $this->formRepository = $formRepository;
         $this->user = $auth->user();
         $this->formParser = $formParser;
+        $this->formSubmissionRepository = $formSubmissionRepository;
     }
 
     /**
@@ -118,7 +122,30 @@ class FormController extends Controller {
      *
      * @param $id
      */
-    public function tijger() {
-        dd(\Request::all());
+    public function submit(Request $request) {
+        $input = $request->all();
+
+        $form = $this->formRepository->getForm($input['form_id'], true);
+
+        $data = array();
+        $errors = array();
+        $valid = true;
+
+        foreach($form->fields as $field) {
+            if(isset($input[$field->name])) {
+                $data[$field->id] = $input[$field->name];
+            } else {
+                if ($field->requied == true) {
+                    $valid = false;
+                    $errors[] = "The field $field->name is required.";
+                }
+            }
+        }
+
+        if($valid) {
+            $this->formSubmissionRepository->saveSubmission($data, $form);
+        } else {
+            return $this->formParser->renderForm($input['form_id'], $errors);
+        }
     }
 } 
