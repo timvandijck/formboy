@@ -28,5 +28,6 @@ elixir(function(mix) {
        .publish(
             'font-awesome/fonts',
             'public/css/fonts'
-        );
+        )
+        .coffee();
 });
