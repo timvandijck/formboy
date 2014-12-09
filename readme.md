@@ -12,6 +12,14 @@ TBA
 2) Upload your form.
 3) You're done!
 
+### Validation
+In order to do some validation on your fields you can add one of the following classes to your input-fields.
+
+Class           | Validation
+--------------- | -------------
+required        | Check if the field contains a value.
+validate-email  | Check if a valid e-mailadres is given.
+
 ### Required tokens
 In order to make your form functional we need you to include some tokens.
 
@@ -36,10 +44,16 @@ With the magic token we add some extra magic to your form like CSRF-protection. 
 
 Example:
 ```html
-{{CSRF}}
+{{Magic}}
 
 <input type="submit" value="Submit">
 ```
+
+#### {{CSS}}
+Put this token where the CSS-files should be.
+
+#### {{Scripts}}
+Put this token where the Javascript-files should be.
 
 ### License
 
