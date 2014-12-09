@@ -36,10 +36,15 @@ With the magic token we add some extra magic to your form like CSRF-protection. 
 
 Example:
 ```html
-{{CSRF}}
+{{Magic}}
 
 <input type="submit" value="Submit">
-```
+
+#### {{CSS}}
+Put this token where the CSS-files should be.
+
+#### {{Scripts}}
+Put this token where the Javascript-files should be.
 
 ### License
 
