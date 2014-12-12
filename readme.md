@@ -23,37 +23,16 @@ validate-email  | Check if a valid e-mailadres is given.
 ### Required tokens
 In order to make your form functional we need you to include some tokens.
 
-#### {{FormErrors}}
-This token is needed to display errors on your form.
+Token                 | What it does
+--------------------- | -------------------------------------
+{{FormErrors}}        | Outputs validation errors.
+{{FormSubmit}}        | Sets the action-attribute of the form. Put as the action="" attribute.
+{{Magic}}             | Some magic stuff like CSRF protection. Put between the form-tags.
+{{Scripts}}           | Adds client-side validation and your uploaded JS-files. Put it before </body>
+{{CSS}}               | Adds your uploaded CSS. Put it between <head></head>.
 
-Example:
-```html
-<div class="errors">{{FormErrors}}</div>
-```
-
-#### {{FormSubmit}}
-We need this to let the form know where to submit the data. Just put it in the action-tag of your form.
-
-Example:
-```html
-<form method="POST" action="{{FormSubmit}}">
-```
-
-#### {{Magic}}
-With the magic token we add some extra magic to your form like CSRF-protection. Put it between the <form></form> tags. Just above the submit-button is a nice spot.
-
-Example:
-```html
-{{Magic}}
-
-<input type="submit" value="Submit">
-```
-
-#### {{CSS}}
-Put this token where the CSS-files should be.
-
-#### {{Scripts}}
-Put this token where the Javascript-files should be.
+### Inputfields
+All your inputfields that should be saved after submission should have a data-fillable="true" attribute. This is to prevent mass-assignement vulnerabilities.
 
 ### License
 
