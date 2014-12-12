@@ -57,7 +57,7 @@ class FormController extends Controller {
             $cssFile = $request->file('css_file');
             $jsFile = $request->file('js_file');
 
-            $form = $this->formRepository->saveForm($request->get('name'), $templateFile, $completePage, $cssFile, $jsFile, $this->user);
+            $form = $this->formRepository->saveForm($request->get('name'), $this->user, $templateFile, $completePage, $cssFile, $jsFile);
 
             return redirect("form/$form->id/dashboard");
 
@@ -66,7 +66,7 @@ class FormController extends Controller {
             return view('pages.form.create')->withErrors($ex->getMessage());
 
         } catch (\Exception $ex) {
-
+            dd($ex);
             return view('pages.form.create')->withErrors('An unexpected exception occured. Please contact an administrator.');
 
         }
