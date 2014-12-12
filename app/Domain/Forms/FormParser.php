@@ -43,24 +43,9 @@ class FormParser {
     public function renderForm($form, $errors = array()) {
         $output = file_get_contents($this->getFilePath($form) . $form->template);
 
-        $output = str_replace('{{FormSubmit}}', '/form/submit', $output);
-
-        $errorList = '';
-        if (count($errors) > 0) {
-            $errorList .= '<ul>';
-            foreach($errors as $error) {
-                $errorList .= "<li>$error</li>";
-            }
-            $errorList .= '</ul>';
-        }
-
-        $output = str_replace('{{FormErrors}}', $errorList, $output);
-
-        $magic = '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-        $magic .= '<input type="hidden" name="form_id" value="' . $form->id . '">';
-
-        $output = str_replace('{{Magic}}', $magic, $output);
-
+        $output = $this->addFormSubmit($output);
+        $output = $this->addErrors($output, $errors);
+        $output = $this->addMagic($output, $form);
         $output = $this->addScripts($output, $form);
         $output = $this->addCss($output, $form);
 
@@ -131,6 +116,50 @@ class FormParser {
 
         $output = str_replace('{{CSS}}', $css, $output);
 
+        return $output;
+    }
+
+    /**
+     * @param $form
+     * @param $output
+     * @return mixed
+     */
+    public function addMagic($output, $form)
+    {
+        $magic = '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+        $magic .= '<input type="hidden" name="form_id" value="' . $form->id . '">';
+
+        $output = str_replace('{{Magic}}', $magic, $output);
+        return $output;
+    }
+
+    /**
+     * @param $output
+     * @return mixed
+     */
+    public function addFormSubmit($output)
+    {
+        $output = str_replace('{{FormSubmit}}', '/form/submit', $output);
+        return $output;
+    }
+
+    /**
+     * @param $output
+     * @param $errors
+     * @return mixed
+     */
+    public function addErrors($output, $errors)
+    {
+        $errorList = '';
+        if (count($errors) > 0) {
+            $errorList .= '<ul>';
+            foreach ($errors as $error) {
+                $errorList .= "<li>$error</li>";
+            }
+            $errorList .= '</ul>';
+        }
+
+        $output = str_replace('{{FormErrors}}', $errorList, $output);
         return $output;
     }
 }
