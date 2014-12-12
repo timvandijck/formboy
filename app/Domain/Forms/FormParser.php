@@ -91,9 +91,13 @@ class FormParser {
      * @param $form
      * @return string
      */
-    public function getFilePath($form)
+    public function getFilePath($form, $full = true)
     {
-        return public_path() . '/uploads/' . $form->user_id . '/' . $form->id . '/';
+        if($full) {
+            return public_path() . '/uploads/' . $form->user_id . '/' . $form->id . '/';
+        } else {
+            return '/uploads/' . $form->user_id . '/' . $form->id . '/';
+        }
     }
 
     /**
@@ -106,7 +110,7 @@ class FormParser {
         $scripts .= '<script src="/js/validation.js"></script>';
 
         if(isset($form->javascript_file) && $form->javascript_file != '') {
-            $file = $this->getFilePath($form) . $form->javascript_file;
+            $file = $this->getFilePath($form, false) . $form->javascript_file;
             $scripts .= '<script src="' . $file . '"></script>';
         }
 
@@ -121,7 +125,7 @@ class FormParser {
      */
     protected function addCss($output, $form)
     {
-        $file = $this->getFilePath($form) . $form->css_file;
+        $file = $this->getFilePath($form, false) . $form->css_file;
 
         $css = '<link href="' . $file . '" rel="stylesheet">';
 
