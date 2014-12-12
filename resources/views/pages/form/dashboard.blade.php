@@ -31,6 +31,28 @@
 				    </tbody>
                 </table>
 
+                <h2>Submissions</h2>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        @foreach($form->fields as $field)
+                            <th>{{ucfirst($field->name)}}</th>
+                        @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($submissions as $submission)
+                        <tr>
+                            @foreach($form->fields as $field)
+                                @if(isset($submission[$field->id]))
+                                    <td>{{$submission[$field->id]}}</td>
+                                @endif
+                            @endforeach
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 			</div>
 		</div>
 	</div>

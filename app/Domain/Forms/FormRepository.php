@@ -72,7 +72,7 @@ class FormRepository {
         $query = Form::where('id','=',$id);
 
         if($lazyLoadChildren == true) {
-            $query->with('fields');
+            $query->with('fields', 'submissions', 'submissions.data');
         }
 
         return $query->firstOrFail();

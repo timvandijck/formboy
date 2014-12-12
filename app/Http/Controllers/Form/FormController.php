@@ -85,7 +85,14 @@ class FormController extends Controller {
     public function getFormDashboard($id) {
         $form = $this->formRepository->getForm($id, true);
 
-        return view('pages.form.dashboard')->with('form', $form);
+        $submissions = array();
+        foreach($form->submissions as $submission) {
+            foreach($submission->data as $data) {
+                $submissions[$submission->id][$data->field_id] = $data->data;
+            }
+        }
+
+        return view('pages.form.dashboard')->with('form', $form)->with('submissions', $submissions);
     }
 
     /**

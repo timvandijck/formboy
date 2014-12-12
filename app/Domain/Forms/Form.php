@@ -15,4 +15,8 @@ class Form extends Model {
     public function fields() {
         return $this->hasMany('Formboy\Domain\Forms\Fields\Field');
     }
+
+    public function submissions() {
+        return $this->hasMany('Formboy\Forms\FormSubmissions\FormSubmission');
+    }
 } 
