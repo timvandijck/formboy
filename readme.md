@@ -28,7 +28,7 @@ Token                 | What it does
 {{FormErrors}}        | Outputs validation errors.
 {{FormSubmit}}        | Sets the action-attribute of the form. Put as the action="" attribute.
 {{Magic}}             | Some magic stuff like CSRF protection. Put between the form-tags.
-{{Scripts}}           | Adds client-side validation and your uploaded JS-files. Put it before </body>
+{{Scripts}}           | Adds client-side validation and your uploaded JS-files. Put it at the end of the page.
 {{CSS}}               | Adds your uploaded CSS. Put it between <head></head>.
 
 ### Inputfields
